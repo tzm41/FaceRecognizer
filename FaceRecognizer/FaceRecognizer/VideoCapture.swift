@@ -41,6 +41,10 @@ class VideoCapture: NSObject {
     private let sessionQueue = DispatchQueue(
         label: "com.colintan.facerecognizer.sessionqueue")
 
+    var resoltion: CGSize {
+        return CGSize(width: 640, height: 480)
+    }
+
     /// Toggles between the front and back camera.
     public func flipCamera(completion: @escaping (Error?) -> Void) {
         sessionQueue.async {

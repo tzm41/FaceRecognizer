@@ -20,9 +20,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var confidenceLabel: UILabel!
 
     private var videoImageView: UIImageView = UIImageView()
+    private var drawings: [CAShapeLayer] = []
 
     private let videoCapture = VideoCapture()
     private var currentFrame: CGImage?
+
+    private var captureResolution: CGSize {
+        return videoCapture.resoltion
+    }
 
     /// - Tag: MLModelSetup
     lazy var classificationRequest: VNCoreMLRequest = {
@@ -35,7 +40,7 @@ class ViewController: UIViewController {
             request.imageCropAndScaleOption = .centerCrop
             return request
         } catch {
-            fatalError("Failed to load Vision ML model: \(String(describing: error)).")
+            fatalError("Failed to load CoreML model: \(String(describing: error)).")
         }
     }()
 
@@ -104,16 +109,14 @@ class ViewController: UIViewController {
     }
 
     // MARK: - Perform Requests
-    func updateClassifications(for image: UIImage) {
-        let orientation = CGImagePropertyOrientation(image.imageOrientation)
-        guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
 
+    func updateDetectionAndClassification(for image: CGImage) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let handler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation)
+            let handler = VNImageRequestHandler(cgImage: image)
             do {
-                try handler.perform([self.classificationRequest])
+                try handler.perform([self.detectionRequest, self.classificationRequest])
             } catch {
-                print("Failed to perform classification.\n\(error.localizedDescription)")
+                print("Failed to perform classification: \(String(describing: error)).")
             }
         }
     }
@@ -124,22 +127,24 @@ class ViewController: UIViewController {
                 self.currentFrame = nil
             }
 
-            guard let currentFrame = self.currentFrame else {
-                return
-            }
+            guard let currentFrame = self.currentFrame else { return }
 
             self.videoImageView.image = UIImage(cgImage: currentFrame)
+            self.clearDrawings()
 
             guard let results = request.results, let observations = results as? [VNFaceObservation] else { return }
-
-            self.drawFaceObservations(results)
+            
+            for observation in observations {
+                self.drawDetectedFace(observation)
+            }
+            self.updateDetectionUI(faceDetected: !observations.isEmpty)
         }
     }
 
     private func processClassification(for request: VNRequest, error: Error?) {
         DispatchQueue.main.async {
             guard let results = request.results, let classifications = results as? [VNClassificationObservation] else {
-                self.classLabel?.text = "Unable to classify image.\n\(error!.localizedDescription)"
+                self.classLabel?.text = "Unable to classify image: \(String(describing: error))."
                 return
             }
 
@@ -162,6 +167,27 @@ class ViewController: UIViewController {
             confidenceLabel.text = String(format: "Confidence: %.3f", topClassification.confidence)
         }
     }
+
+    private func clearDrawings() {
+        drawings.forEach { drawing in drawing.removeFromSuperlayer() }
+        drawings.removeAll()
+    }
+
+    private func drawDetectedFace(_ observation: VNFaceObservation) {
+        guard let currentFrame = currentFrame else { return }
+
+        let faceBounds = VNImageRectForNormalizedRect(observation.boundingBox, currentFrame.width, currentFrame.height)
+        var transform = CGAffineTransform(translationX: 0, y: CGFloat(currentFrame.height))
+        transform = transform.scaledBy(x: 1, y: -1)
+        let faceBoundingBoxPath = CGPath(rect: faceBounds.applying(transform), transform: nil)
+        let faceBoundingBoxShape = CAShapeLayer()
+        faceBoundingBoxShape.path = faceBoundingBoxPath
+        faceBoundingBoxShape.fillColor = UIColor.clear.cgColor
+        faceBoundingBoxShape.strokeColor = UIColor.green.cgColor
+
+        self.videoImageView.layer.addSublayer(faceBoundingBoxShape)
+        self.drawings.append(faceBoundingBoxShape)
+    }
 }
 
 // MARK: - VideoCaptureDelegate
@@ -176,7 +202,7 @@ extension ViewController: VideoCaptureDelegate {
         }
 
         currentFrame = image
-        updateClassifications(for: UIImage(cgImage: image))
+        updateDetectionAndClassification(for: image)
     }
 }
 
