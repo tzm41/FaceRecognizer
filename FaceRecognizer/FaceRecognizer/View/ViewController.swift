@@ -8,6 +8,10 @@
 
 import UIKit
 import AVFoundation
+import CoreML
+import Vision
+import ImageIO
+import VideoToolbox
 
 class ViewController: UIViewController {
 
@@ -15,8 +19,32 @@ class ViewController: UIViewController {
     @IBOutlet weak var classLabel: UILabel!
     @IBOutlet weak var confidenceLabel: UILabel!
 
-    var captureSession: AVCaptureSession!
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer!
+    private var videoImageView: UIImageView = UIImageView()
+
+    private let videoCapture = VideoCapture()
+    private var currentFrame: CGImage?
+
+    /// - Tag: MLModelSetup
+    lazy var classificationRequest: VNCoreMLRequest = {
+        do {
+            let model = try VNCoreMLModel(for: MaskClassifier().model)
+
+            let request = VNCoreMLRequest(model: model, completionHandler: { [weak self] request, error in
+                self?.processClassification(for: request, error: error)
+            })
+            request.imageCropAndScaleOption = .centerCrop
+            return request
+        } catch {
+            fatalError("Failed to load Vision ML model: \(String(describing: error)).")
+        }
+    }()
+
+    lazy var detectionRequest: VNDetectFaceRectanglesRequest = {
+        let request = VNDetectFaceRectanglesRequest(completionHandler: { [weak self] request, error in
+            self?.processDetection(for: request, error: error)
+        })
+        return request
+    }()
 
     // MARK: - View Life Cycle
 
@@ -39,28 +67,26 @@ class ViewController: UIViewController {
             }
         }
 
-        captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .vga640x480
+        setupLivePreview()
+        setupAndBeginCapturingVideoFrames()
+    }
 
-        guard let backCamera = AVCaptureDevice.default(for: .video) else {
-            print("Unable to access back camera!")
-            return
-        }
-
-        do {
-            let input = try AVCaptureDeviceInput(device: backCamera)
-            if captureSession.canAddInput(input) {
-                captureSession.addInput(input)
-                setupLivePreview()
+    private func setupAndBeginCapturingVideoFrames() {
+        videoCapture.setUpAVCapture { error in
+            if let error = error {
+                print("Failed to setup camera with error \(error)")
+                return
             }
-        } catch let error  {
-            print("Error Unable to initialize back camera:  \(error.localizedDescription)")
+
+            self.videoCapture.delegate = self
+            self.videoCapture.startCapturing()
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.captureSession.stopRunning()
+        videoCapture.stopCapturing {
+            super.viewWillDisappear(animated)
+        }
     }
 
     func presentCameraAccessPopup() {
@@ -70,20 +96,103 @@ class ViewController: UIViewController {
     }
 
     func setupLivePreview() {
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        videoView.addSubview(videoImageView)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.videoImageView.frame = self.videoView.bounds
+        }
+    }
 
-        videoPreviewLayer.videoGravity = .resizeAspect
-        videoPreviewLayer.connection?.videoOrientation = .portrait
-        videoView.layer.addSublayer(videoPreviewLayer)
+    // MARK: - Perform Requests
+    func updateClassifications(for image: UIImage) {
+        let orientation = CGImagePropertyOrientation(image.imageOrientation)
+        guard let ciImage = CIImage(image: image) else { fatalError("Unable to create \(CIImage.self) from \(image).") }
 
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.captureSession.startRunning()
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.videoPreviewLayer.frame = self.videoView.bounds
+        DispatchQueue.global(qos: .userInitiated).async {
+            let handler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation)
+            do {
+                try handler.perform([self.classificationRequest])
+            } catch {
+                print("Failed to perform classification.\n\(error.localizedDescription)")
             }
         }
     }
 
+    private func processDetection(for request: VNRequest, error: Error?) {
+        DispatchQueue.main.async {
+            defer {
+                self.currentFrame = nil
+            }
+
+            guard let currentFrame = self.currentFrame else {
+                return
+            }
+
+            self.videoImageView.image = UIImage(cgImage: currentFrame)
+
+            guard let results = request.results, let observations = results as? [VNFaceObservation] else { return }
+
+            self.drawFaceObservations(results)
+        }
+    }
+
+    private func processClassification(for request: VNRequest, error: Error?) {
+        DispatchQueue.main.async {
+            guard let results = request.results, let classifications = results as? [VNClassificationObservation] else {
+                self.classLabel?.text = "Unable to classify image.\n\(error!.localizedDescription)"
+                return
+            }
+
+            self.updateClassificationUI(with: classifications)
+        }
+    }
+
+    private func updateDetectionUI(faceDetected: Bool) {
+        classLabel.isHidden = !faceDetected
+        confidenceLabel.isHidden = !faceDetected
+    }
+
+    private func updateClassificationUI(with classifications: [VNClassificationObservation]) {
+        if classifications.isEmpty {
+            classLabel.text = "Nothing recognized."
+        } else {
+            guard let topClassification = classifications.first else { return }
+            let classString = topClassification.identifier == "0" ? "Unmasked" : "Masked"
+            classLabel.text = "Classification: " + classString
+            confidenceLabel.text = String(format: "Confidence: %.3f", topClassification.confidence)
+        }
+    }
 }
 
+// MARK: - VideoCaptureDelegate
+
+extension ViewController: VideoCaptureDelegate {
+    func videoCapture(_ videoCapture: VideoCapture, didCaptureFrame capturedImage: CGImage?) {
+        guard currentFrame == nil else {
+            return
+        }
+        guard let image = capturedImage else {
+            fatalError("Captured image is null")
+        }
+
+        currentFrame = image
+        updateClassifications(for: UIImage(cgImage: image))
+    }
+}
+
+extension CGImagePropertyOrientation {
+    init(_ uiOrientation: UIImage.Orientation) {
+        switch uiOrientation {
+            case .up: self = .up
+            case .upMirrored: self = .upMirrored
+            case .down: self = .down
+            case .downMirrored: self = .downMirrored
+            case .left: self = .left
+            case .leftMirrored: self = .leftMirrored
+            case .right: self = .right
+            case .rightMirrored: self = .rightMirrored
+        @unknown default:
+            self = .up
+        }
+    }
+}
