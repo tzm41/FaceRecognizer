@@ -114,7 +114,18 @@ class ViewController: UIViewController {
         DispatchQueue.global(qos: .userInitiated).async {
             let handler = VNImageRequestHandler(cgImage: image)
             do {
-                try handler.perform([self.detectionRequest, self.classificationRequest])
+                try handler.perform([self.detectionRequest])
+            } catch {
+                print("Failed to perform classification: \(String(describing: error)).")
+            }
+        }
+    }
+
+    func updateClassification(for image: CGImage) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let handler = VNImageRequestHandler(cgImage: image)
+            do {
+                try handler.perform([self.classificationRequest])
             } catch {
                 print("Failed to perform classification: \(String(describing: error)).")
             }
@@ -138,6 +149,9 @@ class ViewController: UIViewController {
                 self.drawDetectedFace(observation)
             }
             self.updateDetectionUI(faceDetected: !observations.isEmpty)
+            if let firstFace = observations.first, let faceImage = self.getCroppedFaceImage(firstFace) {
+                self.updateClassification(for: faceImage)
+            }
         }
     }
 
@@ -174,12 +188,8 @@ class ViewController: UIViewController {
     }
 
     private func drawDetectedFace(_ observation: VNFaceObservation) {
-        guard let currentFrame = currentFrame else { return }
-
-        let faceBounds = VNImageRectForNormalizedRect(observation.boundingBox, currentFrame.width, currentFrame.height)
-        var transform = CGAffineTransform(translationX: 0, y: CGFloat(currentFrame.height))
-        transform = transform.scaledBy(x: 1, y: -1)
-        let faceBoundingBoxPath = CGPath(rect: faceBounds.applying(transform), transform: nil)
+        guard let faceBounds = calculateBoundingBox(for: observation) else { return }
+        let faceBoundingBoxPath = CGPath(rect: faceBounds, transform: nil)
         let faceBoundingBoxShape = CAShapeLayer()
         faceBoundingBoxShape.path = faceBoundingBoxPath
         faceBoundingBoxShape.fillColor = UIColor.clear.cgColor
@@ -187,6 +197,21 @@ class ViewController: UIViewController {
 
         self.videoImageView.layer.addSublayer(faceBoundingBoxShape)
         self.drawings.append(faceBoundingBoxShape)
+    }
+
+    private func getCroppedFaceImage(_ observation: VNFaceObservation) -> CGImage? {
+        guard let currentFrame = currentFrame, let faceBounds = calculateBoundingBox(for: observation) else { return nil }
+
+        return currentFrame.cropping(to: faceBounds)
+    }
+
+    private func calculateBoundingBox(for observation: VNFaceObservation) -> CGRect? {
+        guard let currentFrame = currentFrame else { return nil }
+
+        let faceBounds = VNImageRectForNormalizedRect(observation.boundingBox, currentFrame.width, currentFrame.height)
+        var transform = CGAffineTransform(translationX: 0, y: CGFloat(currentFrame.height))
+        transform = transform.scaledBy(x: 1, y: -1)
+        return faceBounds.applying(transform)
     }
 }
 
