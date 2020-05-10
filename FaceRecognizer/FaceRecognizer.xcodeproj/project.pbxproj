@@ -1,0 +1,387 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3B344AE12467924600049696 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B344AE02467924600049696 /* AppDelegate.swift */; };
+		3B344AE32467924600049696 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B344AE22467924600049696 /* SceneDelegate.swift */; };
+		3B344AE52467924600049696 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B344AE42467924600049696 /* ViewController.swift */; };
+		3B344AE82467924600049696 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B344AE62467924600049696 /* Main.storyboard */; };
+		3B344AEA2467924700049696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B344AE92467924700049696 /* Assets.xcassets */; };
+		3B344AED2467924700049696 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B344AEB2467924700049696 /* LaunchScreen.storyboard */; };
+		3B344AFA24679C6C00049696 /* 12net.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3B344AF624679C6C00049696 /* 12net.mlmodel */; };
+		3B344AFB24679C6C00049696 /* 48net.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3B344AF724679C6C00049696 /* 48net.mlmodel */; };
+		3B344AFC24679C6C00049696 /* classifier_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3B344AF824679C6C00049696 /* classifier_model.mlmodel */; };
+		3B344AFD24679C6C00049696 /* 24net.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3B344AF924679C6C00049696 /* 24net.mlmodel */; };
+		3B344AFF2467A09F00049696 /* MTCNN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B344AFE2467A09F00049696 /* MTCNN.swift */; };
+		3B344B012467A46F00049696 /* MTCNNInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B344B002467A46F00049696 /* MTCNNInput.swift */; };
+		3B344B032467A9C300049696 /* MTCNNOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B344B022467A9C300049696 /* MTCNNOutput.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3B344ADD2467924600049696 /* FaceRecognizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceRecognizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B344AE02467924600049696 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3B344AE22467924600049696 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		3B344AE42467924600049696 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3B344AE72467924600049696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3B344AE92467924700049696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3B344AEC2467924700049696 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3B344AEE2467924700049696 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B344AF624679C6C00049696 /* 12net.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = 12net.mlmodel; sourceTree = "<group>"; };
+		3B344AF724679C6C00049696 /* 48net.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = 48net.mlmodel; sourceTree = "<group>"; };
+		3B344AF824679C6C00049696 /* classifier_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = classifier_model.mlmodel; sourceTree = "<group>"; };
+		3B344AF924679C6C00049696 /* 24net.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = 24net.mlmodel; sourceTree = "<group>"; };
+		3B344AFE2467A09F00049696 /* MTCNN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCNN.swift; sourceTree = "<group>"; };
+		3B344B002467A46F00049696 /* MTCNNInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCNNInput.swift; sourceTree = "<group>"; };
+		3B344B022467A9C300049696 /* MTCNNOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCNNOutput.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3B344ADA2467924600049696 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3B344AD42467924600049696 = {
+			isa = PBXGroup;
+			children = (
+				3B344ADF2467924600049696 /* FaceRecognizer */,
+				3B344ADE2467924600049696 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3B344ADE2467924600049696 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B344ADD2467924600049696 /* FaceRecognizer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B344ADF2467924600049696 /* FaceRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				3B344AF524679B5300049696 /* Model */,
+				3B344AF424679B3E00049696 /* View */,
+				3B344AE02467924600049696 /* AppDelegate.swift */,
+				3B344AE92467924700049696 /* Assets.xcassets */,
+				3B344AEB2467924700049696 /* LaunchScreen.storyboard */,
+				3B344AEE2467924700049696 /* Info.plist */,
+			);
+			path = FaceRecognizer;
+			sourceTree = "<group>";
+		};
+		3B344AF424679B3E00049696 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3B344AE22467924600049696 /* SceneDelegate.swift */,
+				3B344AE42467924600049696 /* ViewController.swift */,
+				3B344AE62467924600049696 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3B344AF524679B5300049696 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3B344AF624679C6C00049696 /* 12net.mlmodel */,
+				3B344AF924679C6C00049696 /* 24net.mlmodel */,
+				3B344AF724679C6C00049696 /* 48net.mlmodel */,
+				3B344AF824679C6C00049696 /* classifier_model.mlmodel */,
+				3B344AFE2467A09F00049696 /* MTCNN.swift */,
+				3B344B002467A46F00049696 /* MTCNNInput.swift */,
+				3B344B022467A9C300049696 /* MTCNNOutput.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3B344ADC2467924600049696 /* FaceRecognizer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B344AF12467924700049696 /* Build configuration list for PBXNativeTarget "FaceRecognizer" */;
+			buildPhases = (
+				3B344AD92467924600049696 /* Sources */,
+				3B344ADA2467924600049696 /* Frameworks */,
+				3B344ADB2467924600049696 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FaceRecognizer;
+			productName = FaceRecognizer;
+			productReference = 3B344ADD2467924600049696 /* FaceRecognizer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3B344AD52467924600049696 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "Colin Tan";
+				TargetAttributes = {
+					3B344ADC2467924600049696 = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 3B344AD82467924600049696 /* Build configuration list for PBXProject "FaceRecognizer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3B344AD42467924600049696;
+			productRefGroup = 3B344ADE2467924600049696 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3B344ADC2467924600049696 /* FaceRecognizer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3B344ADB2467924600049696 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B344AED2467924700049696 /* LaunchScreen.storyboard in Resources */,
+				3B344AEA2467924700049696 /* Assets.xcassets in Resources */,
+				3B344AE82467924600049696 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3B344AD92467924600049696 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B344AFB24679C6C00049696 /* 48net.mlmodel in Sources */,
+				3B344B032467A9C300049696 /* MTCNNOutput.swift in Sources */,
+				3B344AFD24679C6C00049696 /* 24net.mlmodel in Sources */,
+				3B344AE52467924600049696 /* ViewController.swift in Sources */,
+				3B344AE12467924600049696 /* AppDelegate.swift in Sources */,
+				3B344AFF2467A09F00049696 /* MTCNN.swift in Sources */,
+				3B344B012467A46F00049696 /* MTCNNInput.swift in Sources */,
+				3B344AFC24679C6C00049696 /* classifier_model.mlmodel in Sources */,
+				3B344AE32467924600049696 /* SceneDelegate.swift in Sources */,
+				3B344AFA24679C6C00049696 /* 12net.mlmodel in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3B344AE62467924600049696 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B344AE72467924600049696 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3B344AEB2467924700049696 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B344AEC2467924700049696 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3B344AEF2467924700049696 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3B344AF02467924700049696 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3B344AF22467924700049696 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R66Y2SC94K;
+				INFOPLIST_FILE = FaceRecognizer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.colintan.FaceRecognizer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3B344AF32467924700049696 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R66Y2SC94K;
+				INFOPLIST_FILE = FaceRecognizer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.colintan.FaceRecognizer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3B344AD82467924600049696 /* Build configuration list for PBXProject "FaceRecognizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B344AEF2467924700049696 /* Debug */,
+				3B344AF02467924700049696 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B344AF12467924700049696 /* Build configuration list for PBXNativeTarget "FaceRecognizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B344AF22467924700049696 /* Debug */,
+				3B344AF32467924700049696 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3B344AD52467924600049696 /* Project object */;
+}

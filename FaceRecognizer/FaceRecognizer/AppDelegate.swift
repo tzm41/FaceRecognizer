@@ -2,7 +2,8 @@
 //  AppDelegate.swift
 //  FaceRecognizer
 //
-//  Created by Colin Tan on 5/2/20.
+//  Created by Colin Tan on 5/9/20.
+//  Copyright © 2020 Colin Tan. All rights reserved.
 //
 
 import UIKit

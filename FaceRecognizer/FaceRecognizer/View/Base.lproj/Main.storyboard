@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FaceRecognizer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kkd-43-Ddw">
+                                <rect key="frame" x="0.0" y="0.0" width="442" height="692"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Face: Masked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ity-Yl-kel">
+                                <rect key="frame" x="154" y="742" width="106" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confidence: 0.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIR-X2-O9c">
+                                <rect key="frame" x="146.5" y="793" width="121" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="AIR-X2-O9c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DaN-Us-SLH"/>
+                            <constraint firstItem="kkd-43-Ddw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IWO-hh-Me3"/>
+                            <constraint firstItem="AIR-X2-O9c" firstAttribute="top" secondItem="ity-Yl-kel" secondAttribute="bottom" constant="30" id="J4a-JS-jac"/>
+                            <constraint firstItem="ity-Yl-kel" firstAttribute="top" secondItem="kkd-43-Ddw" secondAttribute="bottom" constant="50" id="Kuj-f9-V6g"/>
+                            <constraint firstAttribute="trailing" secondItem="kkd-43-Ddw" secondAttribute="trailing" constant="-28" id="MwJ-Kz-3li"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kkd-43-Ddw" secondAttribute="bottom" constant="170" id="eyX-gg-HIg"/>
+                            <constraint firstItem="kkd-43-Ddw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="mBb-4h-HC1"/>
+                            <constraint firstItem="ity-Yl-kel" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="t1S-41-ljb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="classLabel" destination="ity-Yl-kel" id="h05-AA-4Li"/>
+                        <outlet property="confidenceLabel" destination="AIR-X2-O9c" id="XhD-TZ-VRC"/>
+                        <outlet property="videoView" destination="kkd-43-Ddw" id="O3c-r3-d7c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+    </scenes>
+</document>
