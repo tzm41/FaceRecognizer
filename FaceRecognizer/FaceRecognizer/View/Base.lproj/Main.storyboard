@@ -16,17 +16,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kkd-43-Ddw">
-                                <rect key="frame" x="0.0" y="0.0" width="442" height="692"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="662"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Face: Masked" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ity-Yl-kel">
-                                <rect key="frame" x="154" y="742" width="106" height="21"/>
+                                <rect key="frame" x="154" y="712" width="106" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confidence: 0.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIR-X2-O9c">
-                                <rect key="frame" x="146.5" y="793" width="121" height="21"/>
+                                <rect key="frame" x="146.5" y="763" width="121" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -38,8 +38,8 @@
                             <constraint firstItem="kkd-43-Ddw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IWO-hh-Me3"/>
                             <constraint firstItem="AIR-X2-O9c" firstAttribute="top" secondItem="ity-Yl-kel" secondAttribute="bottom" constant="30" id="J4a-JS-jac"/>
                             <constraint firstItem="ity-Yl-kel" firstAttribute="top" secondItem="kkd-43-Ddw" secondAttribute="bottom" constant="50" id="Kuj-f9-V6g"/>
-                            <constraint firstAttribute="trailing" secondItem="kkd-43-Ddw" secondAttribute="trailing" constant="-28" id="MwJ-Kz-3li"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kkd-43-Ddw" secondAttribute="bottom" constant="170" id="eyX-gg-HIg"/>
+                            <constraint firstAttribute="trailing" secondItem="kkd-43-Ddw" secondAttribute="trailing" id="MwJ-Kz-3li"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kkd-43-Ddw" secondAttribute="bottom" constant="200" id="eyX-gg-HIg"/>
                             <constraint firstItem="kkd-43-Ddw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="mBb-4h-HC1"/>
                             <constraint firstItem="ity-Yl-kel" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="t1S-41-ljb"/>
                         </constraints>
